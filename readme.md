@@ -161,7 +161,7 @@ $chart_options = [
 - `with_trashed` (optional) - includes soft deleted models
 - `only_trashed` (optional) - only displays soft deleted models
 - `top_results` (optional, integer) - limit number of results shown, see [Issue #49](https://github.com/LaravelDaily/laravel-charts/issues/49)
-- `chart_color` (optional, value in rgba, like "0,255,255") - defines the color of the chart
+- `chart_color` (optional, value in rgba, like "0,255,255") - defines the color of the chart. For pie charts provide an array of colors with keys depending on your group_by_field or group_by_period option.
 - `labels` (optional, array with key and value) - defines key value array mapping old and new values
 - `hidden` (optional, boolean) hides the current dataset. Useful when having multiple datasets in one chart
 - `stacked` (optional, boolean, only for bar chart) stacks the chart data when dates or strings match instead of showing it next to eachother
