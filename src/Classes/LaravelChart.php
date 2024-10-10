@@ -4,6 +4,7 @@ namespace LaravelDaily\LaravelCharts\Classes;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -33,7 +34,13 @@ class LaravelChart
         foreach (func_get_args() as $arg) {
             $this->options = $arg;
             $this->options['chart_name'] = strtolower(Str::slug($arg['chart_title'], '_'));
-            $this->datasets[] = $this->prepareData();
+            if(isset($this->options['caching_key'], $this->options['caching_time'])) {
+                $this->datasets[] = Cache::remember($this->options['caching_key'], $this->options['caching_time'], function () {
+                    return $this->prepareData();
+                });
+            } else {
+                $this->datasets[] = $this->prepareData();
+            }
         }
     }
 
