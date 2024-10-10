@@ -92,7 +92,7 @@ return view('dashboard', compact('chart'));
 
 ## Available Reports and Options
 
-Currently package support three types of charts/reports: 
+Currently package support three types of charts/reports:
 
 - `group_by_date` - amount of records from the same table, grouped by time period - day/week/month/year;
 - `group_by_string` - amount of records from the same table, grouped by any string field, like `name`;
@@ -127,6 +127,8 @@ $chart_options = [
     'filter_days' => 30, // show only transactions for last 30 days
     'filter_period' => 'week', // show only transactions for this week
     'continuous_time' => true, // show continuous timeline including dates without data
+    'caching_key' => 'chart1',
+    'caching_time' => 60
 ];
 ```
 
@@ -158,11 +160,13 @@ $chart_options = [
 - `withoutGlobalScopes` (optional) - removes global scope restriction from queried model
 - `with_trashed` (optional) - includes soft deleted models
 - `only_trashed` (optional) - only displays soft deleted models
-- `top_results` (optional, integer) - limit number of results shown, see [Issue #49](https://github.com/LaravelDaily/laravel-charts/issues/49) 
+- `top_results` (optional, integer) - limit number of results shown, see [Issue #49](https://github.com/LaravelDaily/laravel-charts/issues/49)
 - `chart_color` (optional, value in rgba, like "0,255,255") - defines the color of the chart
 - `labels` (optional, array with key and value) - defines key value array mapping old and new values
 - `hidden` (optional, boolean) hides the current dataset. Useful when having multiple datasets in one chart
-- `stacked` (optional, boolean, only for bar chart) stacks the chart data when dates or strings match instead of showing it next to eachother  
+- `stacked` (optional, boolean, only for bar chart) stacks the chart data when dates or strings match instead of showing it next to eachother
+- `caching_key`(optional) - a unique string to identify the chart
+- `caching_time` (optional) - number of seconds the data remains in the cache
 
 - - - - -
 
@@ -193,7 +197,7 @@ $chart_options = [
 
 After you passed `$chart` variable, into Blade, you can render it, by doing __three__ actions:
 
-__Action 1. Render HTML__. 
+__Action 1. Render HTML__.
 
 Wherever in your Blade, call this:
 
@@ -335,7 +339,7 @@ __View__:
 
 ---
 
-## Multiple Datasets 
+## Multiple Datasets
 
 This is a new feature from v0.1.27. You can provide multiple arrays of settings to the `LaravelChart` constructor, and they will be drawn on the same chart.
 
